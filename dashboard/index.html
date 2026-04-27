@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cosmic Engine - Dashboard</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="dashboard">
+    <!-- Sidebar -->
+    <nav class="sidebar" id="sidebar">
+      <div class="logo">
+        <span class="logo-icon">✦</span>
+        <span class="logo-text">Cosmic Engine</span>
+      </div>
+      <div class="nav-items">
+        <a href="#" class="nav-item active" data-tab="overview">
+          <span class="nav-icon">📊</span>
+          <span>Overview</span>
+        </a>
+        <a href="#" class="nav-item" data-tab="agents">
+          <span class="nav-icon">🤖</span>
+          <span>Agents</span>
+        </a>
+        <a href="#" class="nav-item" data-tab="tasks">
+          <span class="nav-icon">📋</span>
+          <span>Tasks</span>
+        </a>
+        <a href="#" class="nav-item" data-tab="logs">
+          <span class="nav-icon">📝</span>
+          <span>Logs</span>
+        </a>
+        <a href="#" class="nav-item" data-tab="memory">
+          <span class="nav-icon">🧠</span>
+          <span>Memory</span>
+        </a>
+        <a href="#" class="nav-item" data-tab="playground">
+          <span class="nav-icon">🎮</span>
+          <span>Playground</span>
+        </a>
+      </div>
+      <div class="sidebar-footer">
+        <div class="connection-status" id="connection-status">
+          <span class="status-dot offline"></span>
+          <span>Disconnected</span>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content" id="main-content">
+      <!-- Overview Tab -->
+      <section class="tab-content active" id="tab-overview">
+        <header class="page-header">
+          <h1>Dashboard Overview</h1>
+          <div class="header-actions">
+            <button class="btn btn-secondary" id="btn-refresh">🔄 Refresh</button>
+            <button class="btn btn-primary" id="btn-run-cycle">▶ Run Cycle</button>
+          </div>
+        </header>
+
+        <div class="stats-grid">
+          <div class="stat-card" id="stat-total">
+            <div class="stat-label">Total Tasks</div>
+            <div class="stat-value">0</div>
+          </div>
+          <div class="stat-card pending" id="stat-pending">
+            <div class="stat-label">Pending</div>
+            <div class="stat-value">0</div>
+          </div>
+          <div class="stat-card running" id="stat-running">
+            <div class="stat-label">Running</div>
+            <div class="stat-value">0</div>
+          </div>
+          <div class="stat-card completed" id="stat-completed">
+            <div class="stat-label">Completed</div>
+            <div class="stat-value">0</div>
+          </div>
+        </div>
+
+        <div class="dashboard-grid">
+          <div class="card card-full">
+            <div class="card-header">
+              <h2>🕸️ Task Dependency Graph</h2>
+            </div>
+            <div class="card-body">
+              <div class="graph-container" id="task-graph">
+                <div class="placeholder">No tasks yet. Use the Playground to launch a build.</div>
+              </div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-header">
+              <h2>⚡ Real-time Activity</h2>
+            </div>
+            <div class="card-body">
+              <div class="activity-feed" id="activity-feed">
+                <div class="activity-empty">Waiting for activity...</div>
+              </div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-header">
+              <h2>📈 System Health</h2>
+            </div>
+            <div class="card-body">
+              <div id="system-health">
+                <div class="health-item">
+                  <span>Orchestrator</span>
+                  <span class="health-status stopped">Stopped</span>
+                </div>
+                <div class="health-item">
+                  <span>Server</span>
+                  <span class="health-status" id="server-status">Checking...</span>
+                </div>
+                <div class="health-item">
+                  <span>Token Budget</span>
+                  <span class="health-status" id="token-budget">-</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Agents Tab -->
+      <section class="tab-content" id="tab-agents">
+        <header class="page-header">
+          <h1>🤖 Agents</h1>
+        </header>
+        <div class="agents-grid" id="agents-grid">
+          <div class="agent-card" data-agent="scaffold">
+            <div class="agent-icon">🏗️</div>
+            <div class="agent-info">
+              <h3>Scaffold Agent</h3>
+              <p>Creates project scaffolding from templates</p>
+            </div>
+            <div class="agent-status idle">Idle</div>
+          </div>
+          <div class="agent-card" data-agent="code-gen">
+            <div class="agent-icon">🧠</div>
+            <div class="agent-info">
+              <h3>Code Generation Agent</h3>
+              <p>Generates code artifacts and components</p>
+            </div>
+            <div class="agent-status idle">Idle</div>
+          </div>
+          <div class="agent-card" data-agent="test">
+            <div class="agent-icon">🧪</div>
+            <div class="agent-info">
+              <h3>Test Agent</h3>
+              <p>Runs automated tests and reports results</p>
+            </div>
+            <div class="agent-status idle">Idle</div>
+          </div>
+          <div class="agent-card" data-agent="review">
+            <div class="agent-icon">🔍</div>
+            <div class="agent-info">
+              <h3>Review Agent</h3>
+              <p>Reviews code quality and best practices</p>
+            </div>
+            <div class="agent-status idle">Idle</div>
+          </div>
+          <div class="agent-card" data-agent="deploy">
+            <div class="agent-icon">🚀</div>
+            <div class="agent-info">
+              <h3>Deploy Agent</h3>
+              <p>Handles GitHub and Vercel deployments</p>
+            </div>
+            <div class="agent-status idle">Idle</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Tasks Tab -->
+      <section class="tab-content" id="tab-tasks">
+        <header class="page-header">
+          <h1>📋 Tasks</h1>
+        </header>
+        <div class="task-board" id="task-board">
+          <div class="task-column" data-status="pending">
+            <h3>Pending</h3>
+            <div class="task-list" id="tasks-pending"></div>
+          </div>
+          <div class="task-column" data-status="running">
+            <h3>Running</h3>
+            <div class="task-list" id="tasks-running"></div>
+          </div>
+          <div class="task-column" data-status="completed">
+            <h3>Completed</h3>
+            <div class="task-list" id="tasks-completed"></div>
+          </div>
+          <div class="task-column" data-status="failed">
+            <h3>Failed</h3>
+            <div class="task-list" id="tasks-failed"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Logs Tab -->
+      <section class="tab-content" id="tab-logs">
+        <header class="page-header">
+          <h1>📝 Orchestrator Logs</h1>
+          <button class="btn btn-secondary" id="btn-clear-logs">🗑️ Clear</button>
+        </header>
+        <div class="log-viewer" id="log-viewer">
+          <div class="log-header">
+            <span class="log-timestamp">Time</span>
+            <span class="log-message">Message</span>
+          </div>
+          <div class="log-entries" id="log-entries"></div>
+        </div>
+      </section>
+
+      <!-- Memory Tab -->
+      <section class="tab-content" id="tab-memory">
+        <header class="page-header">
+          <h1>🧠 Memory</h1>
+        </header>
+        <div class="memory-view">
+          <div class="card">
+            <h2>Context</h2>
+            <pre id="memory-context" class="memory-content">Loading...</pre>
+          </div>
+          <div class="card">
+            <h2>Artifacts</h2>
+            <div id="memory-artifacts" class="artifacts-list"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Playground Tab -->
+      <section class="tab-content" id="tab-playground">
+        <header class="page-header">
+          <h1>🎮 Playground</h1>
+        </header>
+        <div class="playground">
+          <div class="card">
+            <h2>Launch a Build</h2>
+            <p class="description">Define a task pipeline for the agents to execute.</p>
+            <div class="form-group">
+              <label>Project Name</label>
+              <input type="text" id="input-project" value="cosmic-demo" class="form-input" />
+            </div>
+            <div class="form-group">
+              <label>Template</label>
+              <select id="input-template" class="form-input">
+                <option value="minimal">Minimal (HTML/CSS/JS)</option>
+                <option value="react-ts">React + TypeScript</option>
+                <option value="fullstack">Full-stack (Node.js)</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Features</label>
+              <div class="checkbox-group">
+                <label class="checkbox"><input type="checkbox" value="github" checked /> GitHub Repo</label>
+                <label class="checkbox"><input type="checkbox" value="vercel" checked /> Vercel Deploy</label>
+                <label class="checkbox"><input type="checkbox" value="tests" checked /> Auto Tests</label>
+                <label class="checkbox"><input type="checkbox" value="review" checked /> Code Review</label>
+              </div>
+            </div>
+            <button class="btn btn-primary btn-large" id="btn-launch">
+              🚀 Launch Agent Fleet
+            </button>
+          </div>
+          <div class="card">
+            <h2>Quick Actions</h2>
+            <div class="quick-actions">
+              <button class="btn btn-secondary" id="btn-status">📊 Get Status</button>
+              <button class="btn btn-secondary" id="btn-sample">📦 Generate Sample App</button>
+              <button class="btn btn-secondary" id="btn-serve-demo">🌐 Serve Demo App</button>
+            </div>
+          </div>
+          <div class="card card-full">
+            <h2>Output</h2>
+            <pre id="playground-output" class="playground-output">Ready.</pre>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
